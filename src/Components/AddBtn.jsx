@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function AddBtn({ addData }) {
+function AddBtn({ addData, editData, setEditData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState("");
 
 
-  const handleTitle = (e) =>{
+  const handleTitle = (e) => {
     setTitle(e.target.value);
-  } 
+  }
   const handleDes = (e) => {
     setDesc(e.target.value);
   }
   const handleStatus = (e) => {
     setStatus(e.target.value);
   }
+  useEffect(() => {
+    if (editData) {
+      setTitle(editData.name);
+      setDesc(editData.description);
+      setStatus(editData.stat);
+      setIsModalOpen(true);
+    }
+  }, [editData]);
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    }
+  }
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -34,12 +42,14 @@ function AddBtn({ addData }) {
     };
 
     addData(obj);
-    
-    // Reset input fields
+
+
+
     setTitle("");
     setDesc("");
     setStatus("");
-    setIsModalOpen(false); // Close modal
+    setEditData(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -50,18 +60,18 @@ function AddBtn({ addData }) {
         className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
-        Add Product
+        {editData ? "Edit Product" : "Add Product"}
       </button>
 
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-screen bg-black bg-opacity-50">
           <div className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-md dark:bg-gray-700">
-            
+
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Create New Product
+                {editData ? "edit data" : "Create New Product"}
               </h3>
               <button
                 type="button"
@@ -90,7 +100,7 @@ function AddBtn({ addData }) {
             {/* Modal Body */}
             <form className="p-4" onSubmit={handleAdd}>
               <div className="grid gap-4 mb-4 grid-cols-2">
-                
+
                 {/* Name Input */}
                 <div className="col-span-2">
                   <label
@@ -153,7 +163,7 @@ function AddBtn({ addData }) {
                     <option value="Done">Done</option>
                   </select>
                 </div>
-                
+
               </div>
 
               {/* Submit Button */}
@@ -173,7 +183,7 @@ function AddBtn({ addData }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                Add new product
+                {editData ? "Update Product" : "Add New Product"}
               </button>
             </form>
           </div>
