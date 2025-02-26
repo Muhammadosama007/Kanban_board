@@ -7,7 +7,7 @@ function Home() {
     const [arr, setArr] = useState([]);
     const [editData, setEditData] = useState(null);
 
-    
+
 
 
     const addData = (obj) => {
@@ -19,8 +19,8 @@ function Home() {
             setArr([...arr, obj]);
         }
     };
-
-    useEffect(() => { 
+    //handle local storage
+    useEffect(() => {
         const savedData = JSON.parse(localStorage.getItem("data"));
         if (savedData) {
             setArr(savedData);
@@ -28,16 +28,17 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        if(arr.length>0){
-        localStorage.setItem("data", JSON.stringify(arr));
-        console.log("savedData: ",arr); 
-        }       
+        if (arr.length > 0) {
+            localStorage.setItem("data", JSON.stringify(arr));
+            console.log("savedData: ", arr);
+        }
     }, [arr]);
 
+    // handle delete
     const onDelete = (e) => {
         const del = arr.filter((index) => index !== e);
         setArr(del);
-        localStorage.setItem("data",JSON.stringify(del));
+        localStorage.setItem("data", JSON.stringify(del));
     }
 
     return (
