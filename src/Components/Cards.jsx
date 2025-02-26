@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-function Cards({ addData,key,onDel, setEditData }) {
+function Cards({ addData,key,onDel, setEditData, onDragStart }) {
 
   const bgColor = (status) => {
     switch (status) {
@@ -20,7 +20,7 @@ function Cards({ addData,key,onDel, setEditData }) {
   return (
     <>
       <div>
-        <div className='ml-12'>
+        <div className='ml-12' draggable onDragStart={onDragStart}>
           <Card className='w-60' sx={{ maxWidth: 345 }}>
             <CardContent className={`${bgColor(addData.stat)} h-48 relative`}>
               <Typography gutterBottom variant="h5" component="div">
