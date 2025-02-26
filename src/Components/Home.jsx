@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import AddBtn from "./AddBtn";
 import Cards from "./Cards";
@@ -6,6 +6,9 @@ import Cards from "./Cards";
 function Home() {
     const [arr, setArr] = useState([]);
     const [editData, setEditData] = useState(null);
+
+    
+
 
     const addData = (obj) => {
         if (editData) {
@@ -16,9 +19,25 @@ function Home() {
             setArr([...arr, obj]);
         }
     };
+
+    useEffect(() => { 
+        const savedData = JSON.parse(localStorage.getItem("data"));
+        if (savedData) {
+            setArr(savedData);
+        }
+    }, []);
+
+    useEffect(() => {
+        if(arr.length>0){
+        localStorage.setItem("data", JSON.stringify(arr));
+        console.log("savedData: ",arr); 
+        }       
+    }, [arr]);
+
     const onDelete = (e) => {
         const del = arr.filter((index) => index !== e);
         setArr(del);
+        localStorage.setItem("data",JSON.stringify(del));
     }
 
     return (
@@ -35,7 +54,7 @@ function Home() {
                         {arr
                             .filter((obj) => obj.stat === "Todo")
                             .map((i, index) => (
-                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={()=>{setEditData(i)}}/>
+                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={() => { setEditData(i) }} />
                             ))}
                     </div>
                 </div>
@@ -47,7 +66,7 @@ function Home() {
                         {arr
                             .filter((obj) => obj.stat === "In-progress")
                             .map((i, index) => (
-                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={()=>{setEditData(i)}} />
+                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={() => { setEditData(i) }} />
                             ))}
                     </div>
                 </div>
@@ -59,7 +78,7 @@ function Home() {
                         {arr
                             .filter((obj) => obj.stat === "Done")
                             .map((i, index) => (
-                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={()=>{setEditData(i)}}/>
+                                <Cards key={index} addData={i} onDel={() => { onDelete(i) }} setEditData={() => { setEditData(i) }} />
                             ))}
                     </div>
                 </div>
