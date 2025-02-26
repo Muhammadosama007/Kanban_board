@@ -44,7 +44,6 @@ function AddBtn({ addData, editData, setEditData }) {
     addData(obj);
 
 
-
     setTitle("");
     setDesc("");
     setStatus("");
@@ -71,7 +70,7 @@ function AddBtn({ addData, editData, setEditData }) {
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {editData ? "edit data" : "Create New Product"}
+                {editData ? "Update Data" : "Create New Product"}
               </h3>
               <button
                 type="button"
