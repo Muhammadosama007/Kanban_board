@@ -62,10 +62,9 @@ function Home() {
             <AddBtn addData={addData} editData={editData} setEditData={setEditData} />
 
             <div className="flex justify-between mx-11">
-
                 {/* TO DO Section */}
                 <div
-                    className="bg-blue-200 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-blue-200 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Todo")}
                 >
@@ -73,10 +72,6 @@ function Home() {
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "Todo")
-                            .sort((a, b) => {
-                                const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-                                return priorityOrder[a.prior] - priorityOrder[b.prior];
-                            })
                             .map((i, index) => (
                                 <Cards
                                     key={index}
@@ -89,10 +84,9 @@ function Home() {
                     </div>
                 </div>
 
-
                 {/* In Progress Section */}
                 <div
-                    className="bg-orange-300 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-orange-300 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "In-progress")}
                 >
@@ -100,10 +94,6 @@ function Home() {
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "In-progress")
-                            .sort((a, b) => {
-                                const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-                                return priorityOrder[a.prior] - priorityOrder[b.prior];
-                            })
                             .map((i, index) => (
                                 <Cards
                                     key={index}
@@ -118,7 +108,7 @@ function Home() {
 
                 {/* Done Section */}
                 <div
-                    className="bg-green-500 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-green-500 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Done")}
                 >
@@ -126,10 +116,6 @@ function Home() {
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "Done")
-                            .sort((a, b) => {
-                                const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-                                return priorityOrder[a.prior] - priorityOrder[b.prior];
-                            })
                             .map((i, index) => (
                                 <Cards
                                     key={index}
