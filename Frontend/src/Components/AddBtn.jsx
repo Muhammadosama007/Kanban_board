@@ -5,7 +5,7 @@ function AddBtn({ addData, editData, setEditData }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState("");
-  const [priority, setPriority] = useState("");
+
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -16,15 +16,12 @@ function AddBtn({ addData, editData, setEditData }) {
   const handleStatus = (e) => {
     setStatus(e.target.value);
   }
-  const handlePriority = (e) => {
-    setPriority(e.target.value);
-  }
+ 
   useEffect(() => {
     if (editData) {
       setTitle(editData.name);
       setDesc(editData.description);
       setStatus(editData.stat);
-      setPriority(editData.prior);
       setIsModalOpen(true);
     }
   }, [editData]);
@@ -34,7 +31,7 @@ function AddBtn({ addData, editData, setEditData }) {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    if (!title || !desc || !status || !priority) {
+    if (!title || !desc || !status) {
       alert("Please fill all fields!");
       return;
     }
@@ -43,7 +40,6 @@ function AddBtn({ addData, editData, setEditData }) {
       name: title,
       description: desc,
       stat: status,
-      prior:priority
     };
 
     addData(obj);
@@ -52,7 +48,6 @@ function AddBtn({ addData, editData, setEditData }) {
     setTitle("");
     setDesc("");
     setStatus("");
-    setPriority("");
     setEditData(null);
     setIsModalOpen(false);
   };
@@ -166,29 +161,6 @@ function AddBtn({ addData, editData, setEditData }) {
                     <option value="Todo">Todo</option>
                     <option value="In-progress">In-progress</option>
                     <option value="Done">Done</option>
-                  </select>
-                </div>
-
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    htmlFor="priority"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Priority
-                  </label>
-                  <select
-                    id="priority"
-                    onChange={handlePriority}
-                    value={priority}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    required
-                  >
-                    <option value="" disabled>
-                      Select Priority
-                    </option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
                   </select>
                 </div>
 

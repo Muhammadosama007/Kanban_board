@@ -20,7 +20,7 @@ function Cards({ addData,key,onDel, setEditData, onDragStart }) {
   return (
     <>
       <div>
-        <div className='ml-12 mb-2' draggable onDragStart={onDragStart}>
+        <div className='ml-12 mb-2 card' draggable onDragStart={onDragStart} data-index={key}>
           <Card className='w-60' sx={{ maxWidth: 345 }}>
             <CardContent className={`${bgColor(addData.stat)} h-48 relative`}>
               <Typography gutterBottom variant="h5" component="div">
