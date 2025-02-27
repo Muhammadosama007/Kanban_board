@@ -64,7 +64,7 @@ function Home() {
             <div className="flex justify-between mx-11">
                 {/* TO DO Section */}
                 <div
-                    className="bg-blue-200 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-blue-200 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Todo")}
                 >
@@ -86,7 +86,7 @@ function Home() {
 
                 {/* In Progress Section */}
                 <div
-                    className="bg-orange-300 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-orange-300 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "In-progress")}
                 >
@@ -108,7 +108,7 @@ function Home() {
 
                 {/* Done Section */}
                 <div
-                    className="bg-green-500 border border-solid rounded-md w-1/3 h-screen text-center"
+                    className="bg-green-500 border border-solid rounded-md w-1/3 h-auto text-center"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Done")}
                 >
