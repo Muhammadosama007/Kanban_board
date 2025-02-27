@@ -27,7 +27,34 @@ function Home() {
     useEffect(() => {
         if (arr.length > 0) {
             localStorage.setItem("data", JSON.stringify(arr));
+        }
+    }, [arr]);
 
+    const onDelete = (task) => {
+        const updatedArr = arr.filter((i) => i !== task);
+        setArr(updatedArr);
+        localStorage.setItem("data", JSON.stringify(updatedArr));
+    };
+
+    const onDragStart = (e, item) => {
+        e.dataTransfer.setData("task", JSON.stringify(item));
+    };
+
+    const onDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const onDrop = (e, newStat) => {
+        e.preventDefault();
+        const draggedItem = JSON.parse(e.dataTransfer.getData("task"));
+
+        const updatedArr = arr.map((i) =>
+            JSON.stringify(i) === JSON.stringify(draggedItem) ? { ...i, stat: newStat } : i
+        );
+
+        setArr(updatedArr);
+        localStorage.setItem("data", JSON.stringify(updatedArr));
+    };
 
     return (
         <div className="bg-slate-500 ">
