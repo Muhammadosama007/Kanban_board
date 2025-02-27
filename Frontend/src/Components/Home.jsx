@@ -54,6 +54,7 @@ function Home() {
             } else {
                 updatedTodos.push({ ...draggedTodo, stat: newStatus }); // Fallback if no specific target
             }
+            
         } else {
             updatedTodos.push({ ...draggedTodo, stat: newStatus }); // Drop at the end if not on a card
         }
