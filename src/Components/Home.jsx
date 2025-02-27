@@ -84,6 +84,7 @@ function Home() {
                     </div>
                 </div>
 
+
                 {/* In Progress Section */}
                 <div
                     className="bg-orange-300 border border-solid rounded-md w-1/3 h-auto text-center"
