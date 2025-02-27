@@ -57,7 +57,7 @@ function Home() {
     };
 
     return (
-        <div className="bg-slate-500">
+        <div className="bg-slate-500 ">
             <Nav />
             <AddBtn addData={addData} editData={editData} setEditData={setEditData} />
 
