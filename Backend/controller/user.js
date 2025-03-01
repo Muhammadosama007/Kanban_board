@@ -28,7 +28,7 @@ const getUser= async(req,res)=>{
 
 const updateUser=async(req,res)=>{
     const updateUser= await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
-console.log("updated userdata",updateUser);
+
     if(!updateUser){
         res.status(404).json({
             message:"cannot update user"
