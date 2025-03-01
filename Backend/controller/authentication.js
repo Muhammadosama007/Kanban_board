@@ -23,6 +23,11 @@ const login = async (req, res) => {
         else {
             const encrytToken = jwt.sign({ id: user.id, email: user.email }, "secret");
 
+            res.cookie("access_token", encrytToken, {
+                httpOnly: true, 
+                secure: true,
+            });
+
             res.status(200).json({
                 message: "successfully login",
                 user: user,
@@ -39,8 +44,15 @@ const register = async (req, res) => {
             message: 'Email and Password Required!!'
         })
     }
-    else {
-        // const salt = 10;
+    try{
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({
+                message: 'User with this email already exists!'
+            });
+        }
+
+         // const salt = 10;
         // const hashedPassword = await bcrypt.hash(password, salt);
         const pass = await bcrypt.hash(password,10);
         const newUser = new User({
@@ -54,6 +66,11 @@ const register = async (req, res) => {
             email: newUser.email,
             password: pass
         })
+    }catch(error){
+        res.status(500).json({
+            message: 'Error registering user',
+            error: error.message
+        });
     }
 }
 
