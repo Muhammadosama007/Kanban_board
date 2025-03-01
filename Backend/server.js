@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cookieParse=require('cookie-parser');
+const cors = require('cors');
+const cookieParse = require('cookie-parser');
 const userAuth = require('../Backend/routes/authentication')
 const userCrud = require('../Backend/routes/user');
 const taskCrud = require('../Backend/routes/task');
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParse());
+app.use(cors());
 
 mongoose.connect('mongodb://localhost:27017/kanban');
 
