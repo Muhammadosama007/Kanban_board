@@ -108,6 +108,7 @@ function Home() {
                             ))}
                     </div>
                 </div>
+                
                 {/* Done Section */}
                 <div
                     className="bg-green-500 border border-solid rounded-md w-1/3 h-auto text-center"
