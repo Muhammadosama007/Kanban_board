@@ -1,18 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState,useEffect } from 'react'
 import './App.css'
 import Home from './Components/Home'
-import Nav from './Components/Nav'
-import AddBtn from './Components/AddBtn'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import Signup from './Components/Signup'
+import Login from './Components/Login'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [token,setToken]=useState(localStorage.getItem("token"));
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+
+    if(token){
+      setToken(token);
+    }
+  },[])
 
   return (
-    <>
-      <Home/>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={token ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </Router>
   )
 }
 
