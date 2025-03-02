@@ -1,28 +1,6 @@
 const { Task } = require('../models/taskModel');
 const { log } = require('../models/logModel')
 
-// const create = async(req, res) => {
-//     const newTask = new Task(req.body);
-
-//     const createLog = new log({
-//         taskId: newTask._id,
-//         changedBy: newTask._userId,
-//         previousStatus: null,
-//         newStatus: newTask._stat,
-//         action: "Created"
-//     });
-
-//     if (!newTask) {
-//         res.status(404).json({
-//             message: "can't add new task!!!"
-//         })
-//     }
-//     else {
-//        await newTask.save();
-//        await createLog.save();
-//         res.send(newTask);
-//     }
-// }
 const create = async (req, res) => {
     try {
         const { name, description, stat, userId } = req.body;
@@ -43,18 +21,19 @@ const create = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error creating task", error });
     }
+
 };
 const getTask = async (req, res) => {
     try {
         const userId = req.user._id;
         
-        const tasks = await Task.find({userId}).populate('userId');
+        const tasks = await Task.find().populate('userId');
         
         if (!tasks.length) {
             return res.status(404).json({ message: "No tasks found for this user!" });
         }
-        res.status(200).json({ tasks });
-    } catch (error) {
+        res.status(200).json({tasks});
+    } catch (error) {   
         res.status(500).json({ message: "Error retrieving tasks", error: error.message });
     }
 };
@@ -65,9 +44,10 @@ const updateTask = async (req, res) => {
     console.log("status", statusBefore);
 
     //console.log("userId: ",req.user._id);
-    if (BTask.userId.toString() !== req.user._id.toString()) {
-        return res.status(403).json({ message: "You are not authorized to update this task" });
-    }
+    // if (BTask.userId.toString() !== req.user._id.toString()) {
+    //     return res.status(403).json({ message: "You are not authorized to update this task" });
+    // }
+    
     const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
     const statusAfter = updateTask.stat;
     console.log("status", statusAfter);
@@ -88,7 +68,8 @@ const updateTask = async (req, res) => {
         updateTask.save();
         activityLog.save();
         res.status(201).json({ message: "Task Updated successfully", task: updateTask, log: activityLog });
-        res.send(updateTask);
+       // res.send(updateTask);
+
     }
 }
 
@@ -96,9 +77,9 @@ const delTask = async (req, res) => {
     const BTask = await Task.findById(req.params.id);
     const statusBefore = BTask.stat;
     console.log("status", statusBefore);
-    if (BTask.userId.toString() !== req.user._id.toString()) {
-        return res.status(403).json({ message: "You are not authorized to delete this task" });
-    }
+    // if (BTask.userId.toString() !== req.user._id.toString()) {
+    //     return res.status(403).json({ message: "You are not authorized to delete this task" });
+    // }
     const delTask = await Task.findByIdAndDelete(req.params.id);
     const userId = delTask.userId;
     console.log("userId: ", userId);
