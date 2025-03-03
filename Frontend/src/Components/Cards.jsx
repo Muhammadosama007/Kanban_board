@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 
 function Cards({ addData,key,onDel, setEditData, onDragStart }) {
 
+  
   const bgColor = (status) => {
     switch (status) {
       case "Todo":
