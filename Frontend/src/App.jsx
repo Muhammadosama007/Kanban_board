@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Home from './Components/Home'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
@@ -7,15 +7,31 @@ import Login from './Components/Login'
 
 
 function App() {
-  const [token,setToken]=useState(localStorage.getItem("token"));
-  useEffect(()=>{
-    const token = localStorage.getItem("token");
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    if(token){
-      setToken(token);
-    }
-  },[])
+  useEffect(() => {
+    (async () => {
 
+      const token = await localStorage.getItem("token");
+      console.log("token", token)
+
+      if (token) {
+        setToken(token);
+      }
+
+      setLoading(false)
+
+
+
+    })()
+  }, [])
+  if (loading) {
+    return <div>
+      Loading
+    </div>
+  }
+  console.log("tok", token)
   return (
     <Router>
       <Routes>
