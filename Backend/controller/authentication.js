@@ -23,10 +23,10 @@ const login = async (req, res) => {
         else {
             const encrytToken = jwt.sign({ id: user.id, email: user.email }, "secret");
 
-            res.cookie("access_token", encrytToken, {
-                httpOnly: true, 
-                secure: true,
-            });
+            // res.cookie("access_token", encrytToken, {
+            //     httpOnly: true, 
+            //     secure: true,
+            // });
 
             res.status(200).json({
                 message: "successfully login",
@@ -52,9 +52,9 @@ const register = async (req, res) => {
             });
         }
 
-         // const salt = 10;
+         const salt = 10;
         // const hashedPassword = await bcrypt.hash(password, salt);
-        const pass = await bcrypt.hash(password,10);
+        const pass = await bcrypt.hash(password,salt);
         const newUser = new User({
             email: email,
             password: pass
