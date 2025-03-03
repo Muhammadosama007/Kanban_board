@@ -1,5 +1,27 @@
-import {createContext} from 'react'
+import React, { createContext, useState, useEffect } from "react";
 
-const tokenContext= createContext();
+export const TokenContext = createContext();
 
-export default tokenContext;
+export const TokenProvider = ({ children }) => {
+    const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+        setLoading(false); 
+    }, []);
+
+    const login = (newToken) => {
+        localStorage.setItem("token", newToken);
+        setToken(newToken);
+    };
+
+    return (
+        <TokenContext.Provider value={{ token, login, loading }}>
+            {!loading && children}
+        </TokenContext.Provider>
+    );
+};

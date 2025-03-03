@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { TokenContext } from '../context/tokencontext';
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { login } = useContext(TokenContext);
+    //console.log("token context",tokenContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:3002/auth/login", { email, password });
-            localStorage.setItem("token", response.data.token);
+            //localStorage.setItem("token", response.data.token);
+            login(response.data.token);
             alert("Login Successful");
             navigate('/');
         } catch (err) {
