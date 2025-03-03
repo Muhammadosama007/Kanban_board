@@ -54,7 +54,7 @@ function AddBtn({ addData, editData, setEditData }) {
 
   return (
     <div className="flex justify-end m-4">
-      {/* Add Product Button */}
+     
       <button
         onClick={toggleModal}
         className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -63,12 +63,12 @@ function AddBtn({ addData, editData, setEditData }) {
         {editData ? "Edit Product" : "Add Product"}
       </button>
 
-      {/* Modal */}
+     
       {isModalOpen && (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-screen bg-black bg-opacity-50">
           <div className="relative p-4 w-full max-w-md bg-white rounded-lg shadow-md dark:bg-gray-700">
 
-            {/* Modal Header */}
+            
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {editData ? "Update Data" : "Create New Product"}
@@ -96,12 +96,11 @@ function AddBtn({ addData, editData, setEditData }) {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-
-            {/* Modal Body */}
+ 
             <form className="p-4" onSubmit={handleAdd}>
               <div className="grid gap-4 mb-4 grid-cols-2">
 
-                {/* Name Input */}
+                
                 <div className="col-span-2">
                   <label
                     htmlFor="name"
@@ -120,8 +119,7 @@ function AddBtn({ addData, editData, setEditData }) {
                     required
                   />
                 </div>
-
-                {/* Description Input */}
+             
                 <div className="col-span-2">
                   <label
                     htmlFor="description"
@@ -140,7 +138,6 @@ function AddBtn({ addData, editData, setEditData }) {
                   />
                 </div>
 
-                {/* Status Dropdown */}
                 <div className="col-span-2 sm:col-span-1">
                   <label
                     htmlFor="category"
@@ -166,7 +163,7 @@ function AddBtn({ addData, editData, setEditData }) {
 
               </div>
 
-              {/* Submit Button */}
+             
               <button
                 type="submit"
                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
