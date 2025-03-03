@@ -29,7 +29,7 @@ const logSchema = new mongoose.Schema({
          enum: ["Created", "Updated", "Deleted"], 
          required: true
         },
-    time: {
+    createdAt: {
         type: Date,
         default: Date.now
     }
