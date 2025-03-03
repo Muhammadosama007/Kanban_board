@@ -8,13 +8,12 @@ const authenticate = async (req, res, next) => {
         return res.status(401).json({ message: "Access denied, no token provided" });
     }
 
-    // Remove "Bearer " if it exists
     if (token.startsWith("Bearer ")) {
         token = token.slice(7);
     }
 
     try {
-        const decoded = jwt.verify(token, "secret"); // Replace "secret" with process.env.JWT_SECRET
+        const decoded = jwt.verify(token, "secret");
         req.user = await User.findById(decoded.id).select("-password");
 
         if (!req.user) {
