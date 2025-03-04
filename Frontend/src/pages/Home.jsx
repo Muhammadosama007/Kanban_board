@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import AddBtn from "../components/AddModal";
+import AddModal from "../components/AddModal";
 import Cards from "../components/Cards";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
