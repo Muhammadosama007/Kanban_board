@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useContext } from "react";
-import { TokenContext, TokenProvider } from "./context/tokencontext";
-import Home from "./Components/Home";
-import Signup from "./Components/Signup";
-import Login from "./Components/Login";
+import { TokenContext, TokenProvider } from "./context/TokenContext";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import ActivityLogPage from "./pages/ActivityLogPage";
 
 function App() {
   //const {token} =useContext(TokenContext);
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/activityLog" element={<ActivityLogPage/>}/>
         </Routes>
       </Router>
     </TokenProvider>
