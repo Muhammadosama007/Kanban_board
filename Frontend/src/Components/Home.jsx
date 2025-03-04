@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
 import AddBtn from "./AddBtn";
 import Cards from "./Cards";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../context/tokencontext";
 function Home() {
     const [arr, setArr] = useState([]);
     const [editData, setEditData] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const {logout}= useContext(TokenContext);
 
     useEffect(() => {
         fetchTask();
@@ -107,7 +109,7 @@ function Home() {
 
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        logout();
         alert("Logged out successfully");
         navigate('/login');
     }
