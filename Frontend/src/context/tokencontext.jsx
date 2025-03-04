@@ -11,22 +11,20 @@ export const TokenProvider = ({ children }) => {
         if (storedToken) {
             setToken(storedToken);
         }
-        setLoading(false); 
+        setLoading(false);
     }, []);
 
     const login = (newToken) => {
         localStorage.setItem("token", newToken);
         setToken(newToken);
     };
-    const logout = ()=>{
-       const removeToken= localStorage.removeItem("token");
-       console.log("removeToken:",removeToken);
-       setToken(null);
-
+    const logout = () => {
+        localStorage.removeItem("token");
+        setToken(null);
     }
-    
+
     return (
-        <TokenContext.Provider value={{ token, login, loading,logout }}>
+        <TokenContext.Provider value={{ token, login, loading, logout }}>
             {!loading && children}
         </TokenContext.Provider>
     );

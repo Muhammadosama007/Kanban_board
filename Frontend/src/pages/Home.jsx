@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import Nav from "./Nav";
-import AddBtn from "./AddBtn";
-import Cards from "./Cards";
+import Nav from "../components/Nav";
+import AddBtn from "../components/AddModal";
+import Cards from "../components/Cards";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { TokenContext } from "../context/tokencontext";
+import { Link, useNavigate } from "react-router-dom";
+import { TokenContext } from "../context/TokenContext";
+import { getTasks, updateTask, createTask, deleteTask } from "../api/services";
+import AddModal from "../components/AddModal";
+
+
 function Home() {
     const [arr, setArr] = useState([]);
     const [editData, setEditData] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
-    const {logout}= useContext(TokenContext);
+    const { logout } = useContext(TokenContext);
 
     useEffect(() => {
         fetchTask();
@@ -20,11 +24,12 @@ function Home() {
         console.log("token", token);
 
         try {
-            const response = await axios.get("http://localhost:3002/task/getTask", {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            // const response = await axios.get("http://localhost:3002/task/getTask", {
+            //     headers: { Authorization: `Bearer ${token}` }
+            // });
+            const response = await getTasks(token);
 
-            setArr(response.data.tasks);
+            setArr(response);
         } catch (err) {
             console.log("Error retriveving tasks!!", err);
         }
@@ -33,17 +38,19 @@ function Home() {
     const addData = async (obj) => {
         try {
             if (editData) {
-                const response = await axios.patch(`http://localhost:3002/task/updateTask/${editData._id}`, obj, {
-                    headers: { Authorization: `Bearer ${token}` }
-                })
-                const updatedArr = arr.map((i) => (i === editData ? response.data : i));
+                // const response = await axios.patch(`http://localhost:3002/task/updateTask/${editData._id}`, obj, {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // })
+                const response = await updateTask(token, editData._id, obj);
+                const updatedArr = arr.map((i) => (i === editData ? response : i));
                 setArr(updatedArr);
                 setEditData(null);
             } else {
-                const response = await axios.post("http://localhost:3002/task/create", obj, {
-                    headers: { Authorization: `Bearer ${token}` }
-                })
-                setArr([...arr, response.data]);
+                // const response = await axios.post("http://localhost:3002/task/create", obj, {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // })
+                const response = await createTask(token, obj)
+                setArr([...arr, response]);
                 alert("task added successfully!!");
                 fetchTask();
             }
@@ -63,16 +70,16 @@ function Home() {
         }
     }, [arr]);
     const onDelete = async (task) => {
-        console.log("error in deleting");
         try {
-            await axios.delete(`http://localhost:3002/task/delTask/${task._id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
+            // await axios.delete(`http://localhost:3002/task/delTask/${task._id}`, {
+            //     headers: { Authorization: `Bearer ${token}` }
+            // })
+            await deleteTask(token, task._id);
             const updatedArr = arr.filter((i) => i !== task);
             setArr(updatedArr);
             localStorage.setItem("data", JSON.stringify(updatedArr));
         } catch (err) {
-            console.log("error inn deleting task!!", err);
+            console.log("Error in deleting task!!", err);
         }
     };
     const onDragStart = (e, item) => {
@@ -92,13 +99,13 @@ function Home() {
         localStorage.setItem("data", JSON.stringify(updatedArr));
 
         try {
-            const response = await axios.patch(`http://localhost:3002/task/updateTask/${draggedItem._id}`,{ stat: newStat },{
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            );
-
+            // const response = await axios.patch(`http://localhost:3002/task/updateTask/${draggedItem._id}`, { stat: newStat }, {
+            //     headers: { Authorization: `Bearer ${token}` },
+            // }
+            // );
+            const response = await updateTask(token, draggedItem._id, { stat: newStat });
             if (response.status === 201) {
-                console.log("Task updated:", response.data);
+                console.log("Task updated:", response);
             } else {
                 console.error("Failed to update task");
             }
@@ -111,26 +118,43 @@ function Home() {
     const handleLogout = () => {
         logout();
         alert("Logged out successfully");
-        navigate('/login');
+       // navigate('/login');
+    }
+    const handleActivityLog = () => {
+        alert("Navigating to Activity Log!!");
+        navigate('/activityLog')
     }
     return (
-        <div className="bg-slate-500 ">
+        <div className="bg-gray-900 min-h-screen p-6">
             <Nav />
-            <AddBtn addData={addData} editData={editData} setEditData={setEditData} />
-            <button
-                onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
-            >
-                Logout
-            </button>
-            <div className="flex justify-between mx-11">
-                {/* TO DO Section */}
+            <div className="flex justify-between items-center mb-6">
+                <AddModal addData={addData} editData={editData} setEditData={setEditData} />
+                <div className="flex space-x-4">
+                    
+                    <button
+                        onClick={handleActivityLog}
+                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
+                    >
+                        History
+                    </button>
+                    <button
+                        onClick={handleLogout}
+                        className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300"
+                    >
+                        Logout
+                    </button>
+                </div>
+            </div>
+    
+            <div className="flex justify-between mx-8 space-x-4">
                 <div
-                    className="bg-blue-200 border border-solid rounded-md w-1/3 h-auto text-center"
+                    className="bg-gray-800 border border-gray-700 rounded-lg w-1/3 h-auto text-center shadow-lg"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Todo")}
                 >
-                    <h1 className="font-semibold text-2xl">TO DO</h1>
+                    <h1 className="font-semibold text-xl text-gray-200 py-3 border-b border-gray-700">
+                        TO DO
+                    </h1>
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "Todo")
@@ -145,13 +169,15 @@ function Home() {
                             ))}
                     </div>
                 </div>
-                {/* In Progress Section */}
+    
                 <div
-                    className="bg-orange-300 border border-solid rounded-md w-1/3 h-auto text-center"
+                    className="bg-gray-800 border border-gray-700 rounded-lg w-1/3 h-auto text-center shadow-lg"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "In-progress")}
                 >
-                    <h1 className="font-semibold text-2xl">In Progress</h1>
+                    <h1 className="font-semibold text-xl text-gray-200 py-3 border-b border-gray-700">
+                        In Progress
+                    </h1>
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "In-progress")
@@ -166,14 +192,15 @@ function Home() {
                             ))}
                     </div>
                 </div>
-
-                {/* Done Section */}
+    
                 <div
-                    className="bg-green-500 border border-solid rounded-md w-1/3 h-auto text-center"
+                    className="bg-gray-800 border border-gray-700 rounded-lg w-1/3 h-auto text-center shadow-lg"
                     onDragOver={onDragOver}
                     onDrop={(e) => onDrop(e, "Done")}
                 >
-                    <h1 className="font-semibold text-2xl">Done</h1>
+                    <h1 className="font-semibold text-xl text-gray-200 py-3 border-b border-gray-700">
+                        Done
+                    </h1>
                     <div className="m-3">
                         {arr
                             .filter((obj) => obj && obj.stat === "Done")
@@ -191,5 +218,6 @@ function Home() {
             </div>
         </div>
     );
+    
 }
 export default Home;

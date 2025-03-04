@@ -2,22 +2,10 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { bgColor } from '../helpers/Helper';
 
 function Cards({ addData,key,onDel, setEditData, onDragStart }) {
 
-  
-  const bgColor = (status) => {
-    switch (status) {
-      case "Todo":
-        return "bg-blue-300";
-      case "In-progress":
-        return "bg-orange-400";
-      case "Done":
-        return "bg-green-600";
-      default:
-        return "bg-blue-200";
-    }
-  }
   return (
     <>
       <div>
@@ -32,7 +20,7 @@ function Cards({ addData,key,onDel, setEditData, onDragStart }) {
               </Typography>
               <div className='flex justify-end space-x-2 absolute bottom-2 right-2'>
                 <button onClick={setEditData} className='p-1 border rounded-md font-medium'>Update</button>
-                <button onClick={onDel} className='bg-red-600 p-1 border rounded-md font-medium'>Delete</button>
+                <button onClick={onDel} className='bg-red-600 text-gray-300 p-1 border rounded-md font-medium'>Delete</button>
               </div>
             </CardContent>
 

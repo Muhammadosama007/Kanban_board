@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function AddBtn({ addData, editData, setEditData }) {
+function AddModal({ addData, editData, setEditData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -60,7 +60,7 @@ function AddBtn({ addData, editData, setEditData }) {
         className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
-        {editData ? "Edit Product" : "Add Product"}
+        {editData ? "Edit Task" : "Add Task"}
       </button>
 
      
@@ -71,7 +71,7 @@ function AddBtn({ addData, editData, setEditData }) {
             
             <div className="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {editData ? "Update Data" : "Create New Product"}
+                {editData ? "Update Task" : "Create New Task"}
               </h3>
               <button
                 type="button"
@@ -125,7 +125,7 @@ function AddBtn({ addData, editData, setEditData }) {
                     htmlFor="description"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Product Description
+                    Task Description
                   </label>
                   <textarea
                     onChange={handleDes}
@@ -133,7 +133,7 @@ function AddBtn({ addData, editData, setEditData }) {
                     id="description"
                     rows={4}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Write product description here"
+                    placeholder="Write Task description here"
                     required
                   />
                 </div>
@@ -180,7 +180,7 @@ function AddBtn({ addData, editData, setEditData }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                {editData ? "Update Product" : "Add New Product"}
+                {editData ? "Update Task" : "Add New Task"}
               </button>
             </form>
           </div>
@@ -190,4 +190,4 @@ function AddBtn({ addData, editData, setEditData }) {
   );
 }
 
-export default AddBtn;
+export default AddModal;
