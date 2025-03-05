@@ -21,7 +21,6 @@ function Home() {
 
     const fetchTask = async () => {
         console.log("token", token);
-
         try {
             // const response = await axios.get("http://localhost:3002/task/getTask", {
             //     headers: { Authorization: `Bearer ${token}` }
