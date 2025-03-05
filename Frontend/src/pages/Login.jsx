@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { TokenContext } from '../context/TokenContext';
-import { loginUser } from '../api/services';
+import { TokenContext } from '../Context/TokenContext';
+import { loginUser } from '../Api/services';
 
 function Login() {
     const [email, setEmail] = useState("");
