@@ -30,10 +30,10 @@ export const createTask = async (token, obj) => {
 
 export const updateTask = async (token, taskId, updatedData) => {
     try {
-        const response = await axios.patch(`${baseUrl}/task/updateTask/${taskId}`, updatedData, {
+        return await axios.patch(`${baseUrl}/task/updateTask/${taskId}`, updatedData, {
             headers: { Authorization: `Bearer ${token}` },
         });
-        return response.data;
+       // return response.data;
     } catch (error) {
         console.error("Error updating task:", error);
         throw error;
