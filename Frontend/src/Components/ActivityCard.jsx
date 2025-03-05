@@ -1,6 +1,6 @@
 import React from "react";
 import { format } from "date-fns";
-import { getActionStyle } from "../helpers/Helper.js";
+import { getActionStyle } from "../Helpers/Helper.js";
 
 const ActivityCard = ({ log }) => {
   return (

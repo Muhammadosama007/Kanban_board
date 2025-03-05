@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import Nav from "../components/Nav";
-import AddData from "../components/AddModal";
-import Cards from "../components/Cards";
+import Nav from "../Components/Nav";
+import AddData from "../Components/AddModal";
+import Cards from "../Components/Cards";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { TokenContext } from "../context/TokenContext";
-import { getTasks, updateTask, createTask, deleteTask } from "../api/services";
-import AddModal from "../components/AddModal";
+import { TokenContext } from "../Context/TokenContext";
+import { getTasks, updateTask, createTask, deleteTask } from "../Api/services";
+import AddModal from "../Components/AddModal";
 
 function Home() {
     const [arr, setArr] = useState([]);
