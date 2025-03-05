@@ -1,13 +1,18 @@
 const {User}= require('../models/userModel');
 const bcrypt= require('bcrypt');
 const jwt= require('jsonwebtoken');
-
-
-
+require('dotenv').config();
 
 const login = async (req, res) => {
-    const { password } = req.body;
-    const user = await User.findOne({ email: req.body.email });
+    const { email, password } = req.body;
+   // console.log(email, password);
+    
+    if (!email || !password) {
+        res.status(400).json({
+            message: 'Email and Password Required!!'
+        })
+    }
+    const user = await User.findOne({email});
     if (!user) {
         res.status(401).json({
             message: 'user not found!!!'
@@ -21,7 +26,7 @@ const login = async (req, res) => {
             })
         }
         else {
-            const encrytToken = jwt.sign({ id: user.id, email: user.email }, "secret");
+            const encrytToken = jwt.sign({ id: user.id, email: user.email }, process.env.secret);
 
             // res.cookie("access_token", encrytToken, {
             //     httpOnly: true, 
@@ -62,7 +67,7 @@ const register = async (req, res) => {
 
         await newUser.save();
         res.status(200).json({
-            message: 'successfully registered and password encrypted._.',
+            message: 'successfully registered',
             email: newUser.email,
             password: pass
         })
