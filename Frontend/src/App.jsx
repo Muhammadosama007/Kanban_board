@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useContext } from "react";
-import { TokenContext, TokenProvider } from "./context/TokenContext";
-import Home from "./pages/Home";
+import Home from "./Pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import { TokenContext,TokenProvider } from "./context/TokenContext";
 import ActivityLogPage from "./pages/ActivityLogPage";
 
 function App() {
