@@ -4,12 +4,11 @@ const { log } = require('../models/logModel')
 const create = async (req, res) => {
     try {
         const { name, description, stat, userId } = req.body;
-        if (!name || !description || !stat || !userId) {
+        if (!name || !description || !stat) {
             res.status(400).json({
                 message: "name description status and userId required!!"
             })
         }
-
         const newTask = new Task({ name, description, stat, userId });
         await newTask.save();
 
