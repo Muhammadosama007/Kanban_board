@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useContext } from "react";
-import Home from "./Pages/Home";
-import Signup from "./Pages/Signup";
-import Login from "./Pages/Login";
-import { TokenContext,TokenProvider } from "./Context/TokenContext";
-import ActivityLogPage from "./Pages/ActivityLogPage";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import { TokenContext,TokenProvider } from "./context/TokenContext";
+import ActivityLogPage from "./pages/ActivityLogPage";
 
 function App() {
   //const {token} =useContext(TokenContext);

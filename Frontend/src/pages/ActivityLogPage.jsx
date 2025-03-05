@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ActivityCard from '../Components/ActivityCard';
-import { getActivityLogs } from '../Api/services';
+import ActivityCard from '../components/ActivityCard';
+import { getActivityLogs } from '../api/services';
 
 function ActivityLogPage() {
     const [log, setLog] = useState([]);

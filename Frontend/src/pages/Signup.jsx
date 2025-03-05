@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { signupUser } from '../Api/services';
+import { signupUser } from '../api/services';
 
 function Signup() {
     const [Fname, setFName] = useState("");
