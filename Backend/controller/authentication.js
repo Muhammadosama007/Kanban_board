@@ -43,7 +43,7 @@ const login = async (req, res) => {
 }
 
 const register = async (req, res) => {
-    const { firstName, LastName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     if (!email || !password) {
         res.status(400).json({
             message: 'Email and Password Required!!'
@@ -62,7 +62,7 @@ const register = async (req, res) => {
         const pass = await bcrypt.hash(password, salt);
         const newUser = new User({
             firstName:firstName,
-            LastName:LastName,
+            lastName:lastName,
             email: email,
             password: pass
         })
@@ -71,7 +71,7 @@ const register = async (req, res) => {
         res.status(200).json({
             message: 'successfully registered',
             FirstName:newUser.firstName,
-            LastName:newUser.LastName,
+            LastName:newUser.lastName,
             email: newUser.email,
             password: pass
         })
