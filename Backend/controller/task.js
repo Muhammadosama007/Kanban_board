@@ -29,7 +29,7 @@ const create = async (req, res) => {
 };
 const getTask = async (req, res) => {
     try {
-        const userId = req.user._id;
+        //const userId = req.user._id;
 
         const tasks = await Task.find().populate('userId');
 
@@ -43,8 +43,8 @@ const getTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-    const BTask = await Task.findById(req.params.id);
-    const statusBefore = BTask.stat;
+    const bTask = await Task.findById(req.params.id);
+    const statusBefore = bTask.stat;
     //console.log("status", statusBefore);
 
     //console.log("userId: ",req.user._id);
